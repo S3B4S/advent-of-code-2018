@@ -10,12 +10,12 @@ def transform_data(filename):
 
 
 def part_1():
-    values = transform_data('puzzle-input-part1.txt')
+    values = transform_data('puzzle-input.txt')
     return reduce((lambda x, y: x + y), values)
 
 
 def part_2():
-    values = transform_data('puzzle-input-part2.txt')
+    values = transform_data('puzzle-input.txt')
     frequency = 0
     seen = set([frequency])
     while True:
