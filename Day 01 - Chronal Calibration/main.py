@@ -1,6 +1,7 @@
 from functools import reduce
 import fileinput
 
+
 def transform_data(filename):
     values = []
     for line in fileinput.input(filename):
