@@ -44,7 +44,7 @@ def differ_by_one_char(id, other_id):
         return id[:index_different_char] + id[index_different_char + 1:]
 
 
-def find_similar_IDs(id_list):
+def find_similar_ids(id_list):
     for index, id in enumerate(id_list):
         for other_id in id_list[index:]:
             value = differ_by_one_char(id, other_id)
@@ -56,7 +56,8 @@ def find_similar_IDs(id_list):
 
 def part_2():
     values = transform_data('puzzle-input.txt')
-    return find_similar_IDs(values)
+    return find_similar_ids(values)
+
 
 print(part_1()) # 8715
 print(part_2()) # fvstwblgqkhpuixdrnevmaycd
