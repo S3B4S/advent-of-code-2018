@@ -1,5 +1,6 @@
 from functools import reduce
 import fileinput
+import unittest
 
 
 def transform_data(filename):
@@ -25,8 +26,7 @@ def count_valid_boxes(acc, curr):
     return (acc[0] + twos, acc[1] + threes)
 
 
-def part_1():
-    values = transform_data('puzzle-input.txt')
+def part_1(values):
     count = reduce(count_valid_boxes, values, (0, 0))
     return count[0] * count[1]
 
@@ -59,5 +59,14 @@ def part_2():
     return find_similar_ids(values)
 
 
-print(part_1()) # 8715
-print(part_2()) # fvstwblgqkhpuixdrnevmaycd
+# print(part_2()) # fvstwblgqkhpuixdrnevmaycd
+
+
+class Test_Part_1(unittest.TestCase):
+    def test_simple(self):
+        values = ['abcdef', 'bababc', 'abbcde', 'abcccd', 'aabcdd', 'abcdee', 'ababab']
+        self.assertEqual(part_1(values), 12)
+    
+    def test_puzzle_input(self):
+        values = transform_data('puzzle-input.txt')
+        self.assertEqual(part_1(values), 8715)
