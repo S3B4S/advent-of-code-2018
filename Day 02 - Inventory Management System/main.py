@@ -54,12 +54,8 @@ def find_similar_ids(id_list):
                 continue
 
 
-def part_2():
-    values = transform_data('puzzle-input.txt')
+def part_2(values):
     return find_similar_ids(values)
-
-
-# print(part_2()) # fvstwblgqkhpuixdrnevmaycd
 
 
 class Test_Part_1(unittest.TestCase):
@@ -70,3 +66,13 @@ class Test_Part_1(unittest.TestCase):
     def test_puzzle_input(self):
         values = transform_data('puzzle-input.txt')
         self.assertEqual(part_1(values), 8715)
+
+
+class Test_Part_2(unittest.TestCase):
+    def test_simple(self):
+        values = ['abcde', 'fghij', 'klmno', 'pqrst', 'fguij', 'axcye', 'wvxyz']
+        self.assertEqual(part_2(values), 'fgij')
+
+    def test_puzzle_input(self):
+        values = transform_data('puzzle-input.txt')
+        self.assertEqual(part_2(values), 'fvstwblgqkhpuixdrnevmaycd')
