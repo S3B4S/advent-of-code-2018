@@ -10,18 +10,16 @@ def file_to_list(filename):
     return values
 
 
-def get_digits(list):
-    return [int(entry) for entry in list if entry.isdigit()]
-
-
-def transform_data(list):
-    split = [re.split(' |x|,|:', entry) for entry in list]
-    return [get_digits(entry) for entry in split]
+def transform_data(data):
+    regex = r"#.*@ (\d),(\d): (\d)x(\d)"
+    tuples = [list(re.match(regex, entry).groups()) for entry in data]
+    return [[int(digit) for digit in entry] for entry in tuples]
 
 
 # Part 1 function entry
 def amount_overclaimed_squares(list):
     return 0
+
 
 class Test_Part_1(unittest.TestCase):
     def test_transform_data(self):
