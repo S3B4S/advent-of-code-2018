@@ -32,6 +32,7 @@ def find_biggest_values(data):
 
     return (maxHeight, maxWidth)
 
+
 # Part 1 entry
 def amount_overclaimed_squares(data):
     (maxHeight, maxWidth) = find_biggest_values(data)
@@ -56,6 +57,11 @@ def amount_overclaimed_squares(data):
     return count
 
 
+# Part 2 entry
+def find_perfect_claim(data):
+    return 0
+
+
 class Canvas:
     def __init__(self, height, width):
         self.canvas = [[0 for j in range(0, width + 1)] for i in range(0, height + 1)]
@@ -71,7 +77,7 @@ class Canvas:
             print(row)
 
 
-class Test_Part_1(unittest.TestCase):
+class Test_General(unittest.TestCase):
     def test_transform_data(self):
         values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
         expected = [
@@ -102,7 +108,9 @@ class Test_Part_1(unittest.TestCase):
         canvas.incrementPoint(2, 5)
         canvas.incrementPoint(2, 5)
         self.assertEqual(canvas.getValueAtPoint(2, 5), 2)
-    
+
+
+class Test_Part_1(unittest.TestCase):    
     def test_simple(self):
         values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
         data = transform_data(values)
@@ -112,3 +120,10 @@ class Test_Part_1(unittest.TestCase):
         values = file_to_list('puzzle-input.txt')
         data = transform_data(values)
         self.assertEqual(amount_overclaimed_squares(data), 124850)
+
+
+class Test_Part_2(unittest.TestCase):
+    def test_simple(self):
+        values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
+        data = transform_data(values)
+        self.assertEqual(find_perfect_claim(data), 3)
