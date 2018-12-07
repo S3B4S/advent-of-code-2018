@@ -38,14 +38,19 @@ def amount_overclaimed_squares(list):
 
 
 class Canvas:
-    def __init__(self):
-        self.canvas = [[0 for j in range(0, 1001)] for i in range(0, 1001)]
+    def __init__(self, data):
+        (maxHeight, maxWidth) = find_biggest_values(data)
+        self.canvas = [[0 for j in range(0, maxWidth)] for i in range(0, maxHeight)]
     
     def incrementPoint(self, x, y):
-        self.canvas[x][y] += 1
+        self.canvas[y][x] += 1
 
     def getValueAtPoint(self, x, y):
-        return self.canvas[x][y]
+        return self.canvas[y][x]
+
+    def print(self):
+        for row in self.canvas:
+            print(row)
 
 
 class Test_Part_1(unittest.TestCase):
@@ -64,15 +69,19 @@ class Test_Part_1(unittest.TestCase):
         self.assertEqual(find_biggest_values(data), (6, 6))
 
     def test_canvas_1(self):
-        canvas = Canvas()
+        values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
+        data = transform_data(values)
+        canvas = Canvas(data)
         canvas.incrementPoint(2, 5)
         self.assertEqual(canvas.getValueAtPoint(2, 5), 1)
 
     def test_canvas_2(self):
-        canvas2 = Canvas()
-        canvas2.incrementPoint(2, 5)
-        canvas2.incrementPoint(2, 5)
-        self.assertEqual(canvas2.getValueAtPoint(2, 5), 2)
+        values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
+        data = transform_data(values)
+        canvas = Canvas(data)
+        canvas.incrementPoint(2, 5)
+        canvas.incrementPoint(2, 5)
+        self.assertEqual(canvas.getValueAtPoint(2, 5), 2)
     
     def test_simple(self):
         values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
