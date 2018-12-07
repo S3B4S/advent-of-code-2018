@@ -21,8 +21,8 @@ def find_biggest_values(data):
     maxWidth = 0
 
     for row in data:
-        currenHeight = row[1] + row[3] - 1
-        currentWidth = row[0] + row[2] - 1
+        currenHeight = row[1] + row[3]
+        currentWidth = row[0] + row[2]
 
         if currenHeight > maxHeight:
             maxHeight = currenHeight
@@ -33,14 +33,32 @@ def find_biggest_values(data):
     return (maxHeight, maxWidth)
 
 # Part 1 entry
-def amount_overclaimed_squares(list):
-    return 0
+def amount_overclaimed_squares(data):
+    (maxHeight, maxWidth) = find_biggest_values(data)
+    canvas = Canvas(maxHeight, maxWidth)
+    
+    for entry in data:
+        x = entry[0]
+        y = entry[1]
+        dx = entry[2]
+        dy = entry[3]
+
+        for i in range(x, x + dx):
+            for j in range(y, y + dy):
+                canvas.incrementPoint(i, j)
+
+    count = 0
+    for row in canvas.canvas:
+        for cell in row:
+            if cell > 1:
+                count += 1
+    
+    return count
 
 
 class Canvas:
-    def __init__(self, data):
-        (maxHeight, maxWidth) = find_biggest_values(data)
-        self.canvas = [[0 for j in range(0, maxWidth)] for i in range(0, maxHeight)]
+    def __init__(self, height, width):
+        self.canvas = [[0 for j in range(0, width + 1)] for i in range(0, height + 1)]
     
     def incrementPoint(self, x, y):
         self.canvas[y][x] += 1
@@ -66,19 +84,21 @@ class Test_Part_1(unittest.TestCase):
     def test_get_max_values(self):
         values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
         data = transform_data(values)
-        self.assertEqual(find_biggest_values(data), (6, 6))
+        self.assertEqual(find_biggest_values(data), (7, 7))
 
     def test_canvas_1(self):
         values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
         data = transform_data(values)
-        canvas = Canvas(data)
+        (maxHeight, maxWidth) = find_biggest_values(data)
+        canvas = Canvas(maxHeight, maxWidth)
         canvas.incrementPoint(2, 5)
         self.assertEqual(canvas.getValueAtPoint(2, 5), 1)
 
     def test_canvas_2(self):
         values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
         data = transform_data(values)
-        canvas = Canvas(data)
+        (maxHeight, maxWidth) = find_biggest_values(data)
+        canvas = Canvas(maxHeight, maxWidth)
         canvas.incrementPoint(2, 5)
         canvas.incrementPoint(2, 5)
         self.assertEqual(canvas.getValueAtPoint(2, 5), 2)
