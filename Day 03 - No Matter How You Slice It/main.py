@@ -16,6 +16,22 @@ def transform_data(data):
     return [[int(digit) for digit in entry] for entry in tuples]
 
 
+def find_biggest_values(data):
+    maxHeight = 0
+    maxWidth = 0
+
+    for row in data:
+        currenHeight = row[1] + row[3] - 1
+        currentWidth = row[0] + row[2] - 1
+
+        if currenHeight > maxHeight:
+            maxHeight = currenHeight
+
+        if currentWidth > maxWidth:
+            maxWidth = currentWidth
+
+    return (maxHeight, maxWidth)
+
 # Part 1 entry
 def amount_overclaimed_squares(list):
     return 0
@@ -41,6 +57,11 @@ class Test_Part_1(unittest.TestCase):
             [5, 5, 2, 2],
         ]
         self.assertEqual(transform_data(values), expected)
+
+    def test_get_max_values(self):
+        values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
+        data = transform_data(values)
+        self.assertEqual(find_biggest_values(data), (6, 6))
 
     def test_canvas_1(self):
         canvas = Canvas()
