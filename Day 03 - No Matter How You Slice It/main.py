@@ -11,7 +11,7 @@ def file_to_list(filename):
 
 
 def transform_data(data):
-    regex = r"#.*@ (\d),(\d): (\d)x(\d)"
+    regex = r"#.*@ (\d*),(\d*): (\d*)x(\d*)"
     tuples = [list(re.match(regex, entry).groups()) for entry in data]
     return [[int(digit) for digit in entry] for entry in tuples]
 
@@ -107,3 +107,8 @@ class Test_Part_1(unittest.TestCase):
         values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
         data = transform_data(values)
         self.assertEqual(amount_overclaimed_squares(data), 4)
+
+    def test_puzzle_input(self):
+        values = file_to_list('puzzle-input.txt')
+        data = transform_data(values)
+        self.assertEqual(amount_overclaimed_squares(data), 124850)
