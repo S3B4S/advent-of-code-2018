@@ -37,16 +37,7 @@ def find_biggest_values(data):
 def amount_overclaimed_squares(data):
     (maxHeight, maxWidth) = find_biggest_values(data)
     canvas = Canvas(maxHeight, maxWidth)
-    
-    for entry in data:
-        x = entry[0]
-        y = entry[1]
-        dx = entry[2]
-        dy = entry[3]
-
-        for i in range(x, x + dx):
-            for j in range(y, y + dy):
-                canvas.incrementPoint(i, j)
+    canvas.mark_canvas(data)
 
     count = 0
     for row in canvas.canvas:
@@ -66,10 +57,21 @@ class Canvas:
     def __init__(self, height, width):
         self.canvas = [[0 for j in range(0, width + 1)] for i in range(0, height + 1)]
     
-    def incrementPoint(self, x, y):
+    def mark_canvas(self, data):
+        for entry in data:
+            x = entry[0]
+            y = entry[1]
+            dx = entry[2]
+            dy = entry[3]
+
+            for i in range(x, x + dx):
+                for j in range(y, y + dy):
+                    self.increment_point(i, j)
+
+    def increment_point(self, x, y):
         self.canvas[y][x] += 1
 
-    def getValueAtPoint(self, x, y):
+    def get_value(self, x, y):
         return self.canvas[y][x]
 
     def print(self):
@@ -97,17 +99,17 @@ class Test_General(unittest.TestCase):
         data = transform_data(values)
         (maxHeight, maxWidth) = find_biggest_values(data)
         canvas = Canvas(maxHeight, maxWidth)
-        canvas.incrementPoint(2, 5)
-        self.assertEqual(canvas.getValueAtPoint(2, 5), 1)
+        canvas.increment_point(2, 5)
+        self.assertEqual(canvas.get_value(2, 5), 1)
 
     def test_canvas_2(self):
         values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
         data = transform_data(values)
         (maxHeight, maxWidth) = find_biggest_values(data)
         canvas = Canvas(maxHeight, maxWidth)
-        canvas.incrementPoint(2, 5)
-        canvas.incrementPoint(2, 5)
-        self.assertEqual(canvas.getValueAtPoint(2, 5), 2)
+        canvas.increment_point(2, 5)
+        canvas.increment_point(2, 5)
+        self.assertEqual(canvas.get_value(2, 5), 2)
 
 
 class Test_Part_1(unittest.TestCase):    
