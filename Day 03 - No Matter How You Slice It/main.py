@@ -50,7 +50,26 @@ def amount_overclaimed_squares(data):
 
 # Part 2 entry
 def find_perfect_claim(data):
-    return 0
+    (maxHeight, maxWidth) = find_biggest_values(data)
+    canvas = Canvas(maxHeight, maxWidth)
+    canvas.mark_canvas(data)
+
+    for index, entry in enumerate(data):
+        perfect = True
+        x = entry[0]
+        y = entry[1]
+        dx = entry[2]
+        dy = entry[3]
+
+        for i in range(x, x + dx):
+                for j in range(y, y + dy):
+                    if canvas.get_value(i, j) != 1:
+                        perfect = False
+        
+        if perfect:
+            return index + 1
+
+    return -1
 
 
 class Canvas:
