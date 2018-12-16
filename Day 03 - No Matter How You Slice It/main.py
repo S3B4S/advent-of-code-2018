@@ -148,3 +148,8 @@ class Test_Part_2(unittest.TestCase):
         values = ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2']
         data = transform_data(values)
         self.assertEqual(find_perfect_claim(data), 3)
+
+    def test_puzzle_input(self):
+        values = file_to_list('puzzle-input.txt')
+        data = transform_data(values)
+        self.assertEqual(find_perfect_claim(data), 1097)
