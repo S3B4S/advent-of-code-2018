@@ -62,9 +62,9 @@ def find_perfect_claim(data):
         dy = entry[3]
 
         for i in range(x, x + dx):
-                for j in range(y, y + dy):
-                    if canvas.get_value(i, j) != 1:
-                        perfect = False
+            for j in range(y, y + dy):
+                if canvas.get_value(i, j) != 1:
+                    perfect = False
         
         if perfect:
             return index + 1
